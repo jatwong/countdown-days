@@ -48,8 +48,6 @@
   /* border: 1px solid red; */
 }
 
-
-
 .alt-div a {
   text-decoration: underline;
 }
@@ -66,4 +64,15 @@ input[type="checkbox"]:active,
 input[type="checkbox"]:focus {
   box-shadow: none;
   outline: none;
+}
+
+.invalid input {
+  background-color: #c53a7435;
+  border: 1px solid #C53A74;
+}
+
+.error {
+  color: #C53A74;
+  font-size: small;
+  margin-left: 0.5rem;
 }

@@ -10,10 +10,19 @@ button {
     align-self: center;
 }
 
+button:disabled,
+button:disabled:hover {
+    background-color: #8189A5;
+    color: #D7D7D7;
+    border: 1px solid #8189A5;
+    cursor:auto;
+}
+
 button:hover {
     background-color: #99ABED;
     border: 1px solid #99ABED;
     color: #3E4F8E;
+    cursor: pointer;
 }
 
 /* button:active {

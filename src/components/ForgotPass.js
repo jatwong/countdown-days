@@ -6,11 +6,21 @@ import Button from "./UI/Button";
 import Logo from "./UI/Logo";
 
 import classes from "./Forms/Forms.module.css";
+import useInput from "./hooks/use-input";
 
 const ForgotPass = () => {
+  const {
+    value: enteredEmail,
+    isValid: emailIsValid,
+    hasError: emailHasError,
+    valueChangeHandler: emailChangeHandler,
+    inputBlurHandler: emailBlurHandler,
+  } = useInput((value) => value.includes("@"));
   const [confirm, setConfirm] = useState(false);
 
-  const onSubmitHandler = (event) => {
+  const emailClasses = emailHasError ? classes.invalid : "";
+
+  const formSubmitHandler = (event) => {
     event.preventDefault();
 
     setConfirm(true);
@@ -28,23 +38,29 @@ const ForgotPass = () => {
               the link to reset your password.
             </p>
           </div>
-          <form className={classes.form} onSubmit={onSubmitHandler}>
-            <div>
+          <form className={classes.form} onSubmit={formSubmitHandler}>
+            <div className={emailClasses}>
               <Input
                 for="email"
                 label="Email"
                 type="email"
                 id="email"
                 placeholder="Enter your email address"
+                value={enteredEmail}
+                onBlur={emailBlurHandler}
+                onChange={emailChangeHandler}
               />
             </div>
-            <Button>SEND</Button>
+            {emailHasError && (
+              <p className={classes.error}>Please enter a valid email.</p>
+            )}
+            <Button valid={!emailIsValid}>SEND</Button>
           </form>
         </>
       )}
 
       {confirm && (
-        <div>
+        <div className="div">
           <p className={classes.instruct}>
             We've sent you an email with the link to reset your password.
           </p>
