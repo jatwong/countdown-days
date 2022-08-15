@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
 
-import Input from "./Input/Input";
+import Input from "./Forms/Input/Input";
 import Button from "./UI/Button";
 import Logo from "./UI/Logo";
 

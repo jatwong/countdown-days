@@ -1,5 +1,5 @@
 import Logo from "../UI/Logo";
-import Input from "../Input/Input";
+import Input from "./Input/Input";
 import Button from "../UI/Button";
 
 import classes from "./Forms.module.css";

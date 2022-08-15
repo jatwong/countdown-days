@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import useInput from "../hooks/use-input";
 
 import Logo from "../UI/Logo";
-import Input from "../Input/Input";
+import Input from "./Input/Input";
 import Button from "../UI/Button";
 
 import classes from "./Forms.module.css";
