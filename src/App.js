@@ -5,7 +5,9 @@ import LoginForm from "./components/Forms/LoginForm";
 import SignUpForm from "./components/Forms/SignUpForm";
 import Verify from "./components/Verify";
 import ForgotPass from "./components/ForgotPass";
-import Entry from "./components/Entries/Entry";
+import Entries from "./components/Entries/Entries";
+import AddEntry from "./components/Entries/AddEntry";
+import ViewEntry from "./components/Entries/ViewEntry";
 
 function App() {
   return (
@@ -16,7 +18,9 @@ function App() {
         <Route path="/forgot-password" element={<ForgotPass />} />
         <Route path="/signup" element={<SignUpForm />} />
         <Route path="/verification" element={<Verify />} />
-        <Route path="/entry" element={<Entry />} />
+        <Route path="/entries" element={<Entries />} />
+        <Route path="/add-entry" element={<AddEntry />} />
+        <Route path="/view-entry" element={<ViewEntry />} />
       </Routes>
     </div>
   );

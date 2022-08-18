@@ -1,0 +1,19 @@
+.center {
+    text-align: center;
+}
+
+.h1,
+.h2 {
+    font-weight: 400;
+    color: #3E4F8E;
+}
+
+.h1 {
+    font-size: 3rem;
+    margin-bottom: 0px;
+}
+
+.center h3 {
+    font-size: 2rem;
+    font-weight: 400;
+}

@@ -3,6 +3,7 @@ const Input = (props) => {
     <>
       <label htmlFor={props.for}>{props.label}</label>
       <input
+        className={props.className}
         type={props.type}
         id={props.id}
         placeholder={props.placeholder}
