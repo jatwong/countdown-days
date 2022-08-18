@@ -37,7 +37,6 @@ const LoginForm = () => {
   const formSubmitHandler = (event) => {
     event.preventDefault();
     console.log("Logging in...");
-
   };
 
   return (
@@ -69,7 +68,7 @@ const LoginForm = () => {
             onChange={passwordChangeHandler}
             onBlur={passwordBlurHandler}
           />
-          {passwordHasError && <p className={classes.error}>Invalid password.</p>}
+          {passwordHasError && <p className={classes.error}>Invalid password. Password must have a minimum of 8 characters.</p>}
         </div>
         <Button valid={!formIsValid}>LOGIN</Button>
       </form>
