@@ -8,6 +8,7 @@ import ForgotPass from "./components/ForgotPass";
 import Entries from "./components/Entries/Entries";
 import AddEntry from "./components/Entries/AddEntry";
 import ViewEntry from "./components/Entries/ViewEntry";
+import EditEntry from "./components/Entries/EditEntry";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Route path="/entries" element={<Entries />} />
         <Route path="/add-entry" element={<AddEntry />} />
         <Route path="/view-entry" element={<ViewEntry />} />
+        <Route path="/edit-entry" element={<EditEntry />} />
       </Routes>
     </div>
   );

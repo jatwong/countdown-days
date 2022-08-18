@@ -1,7 +1,10 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 import ConfirmModal from "../UI/ConfirmModal";
-import classes from "./Entries.module.css";
 import Entry from "./Entry";
+
+import classes from "./Entries.module.css";
 
 const DUMMY_DATA = [
   { id: "e1", title: "Countdown" },
@@ -10,6 +13,7 @@ const DUMMY_DATA = [
 
 const Entries = () => {
   const [showModal, setShowModal] = useState(false);
+  const navigate = useNavigate();
 
   const onDeleteHandler = () => {
     setShowModal(true);
@@ -17,8 +21,14 @@ const Entries = () => {
 
   const onEditHandler = () => {
     // navigate to edit entry page
-    setShowModal(false);
+    navigate("/edit-entry");
+    console.log("Editing...");
   };
+
+  const onViewHandler = () => {
+    // navigate to view entry with id
+    navigate("/view-entry");
+  }
 
   let content;
 if (DUMMY_DATA.length === 0) {
@@ -31,7 +41,7 @@ if (DUMMY_DATA.length === 0) {
   content = (
     <ul>
       {DUMMY_DATA.map((entry) => (
-        <Entry title={entry.title} onDelete={onDeleteHandler} onEdit={onEditHandler} />
+        <Entry title={entry.title} onDelete={onDeleteHandler} onEdit={onEditHandler} onView={onViewHandler} />
       ))}
     </ul>
   );
@@ -49,7 +59,7 @@ if (DUMMY_DATA.length === 0) {
   return (
     <>
       {showModal && (
-        <ConfirmModal confirm={onConfirmHandler} cancel={onCancelHandler} />
+        <ConfirmModal confirm={onConfirmHandler} cancel={onCancelHandler}/>
       )}
       {content}
       <button className={`${classes.card} ${classes.add}`}>+ Entry</button>

@@ -6,15 +6,14 @@ import deleteIcon from "../../icons/deleteIcon.svg";
 const Entry = (props) => {
   return (
     <>
-      {/* card needs to be clickable */}
       <div className={classes.card}>
         <img
           className={classes.icon}
           src={editIcon}
           alt="Pencil edit icon"
-          onClick={props.onClick}
+          onClick={props.onEdit}
         />
-        <p className={classes.title}>{props.title}</p>
+        <p className={classes.title} onClick={props.onView}>{props.title}</p>
         <img
           className={classes.icon}
           src={deleteIcon}
