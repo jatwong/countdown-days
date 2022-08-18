@@ -12,6 +12,15 @@ const Home = () => {
       <li>
         <Link to="/verification">Verification</Link>
       </li>
+      <li>
+        <Link to="/entries">List of Entries</Link>
+      </li>
+      <li>
+        <Link to="/add-entry">Add Entry</Link>
+      </li>
+      <li>
+        <Link to="/view-entry">View Entry (hard-coded exampe)</Link>
+      </li>
     </ul>
   );
 };
