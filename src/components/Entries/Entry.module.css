@@ -15,8 +15,17 @@
     margin-right: 20px;
 }
 
+.icon:hover {
+    cursor: pointer;
+}
+
 .title {
     display: flex;
     flex: 1;
     margin-right: 20px;
+}
+
+.title:hover {
+    cursor: pointer;
+    font-weight: 800;
 }
