@@ -1,68 +1,66 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import ConfirmModal from "../UI/ConfirmModal";
 import Entry from "./Entry";
 
 import classes from "./Entries.module.css";
 
 const DUMMY_DATA = [
-  { id: "e1", title: "Countdown" },
-  { id: "e2", title: "anniversary" },
+  { id: 0, title: "Justina B-day", date: new Date(2022, 10, 11, 10) },
+  { id: 1, title: "Robin B-day", date: new Date(2022, 11, 26, 10) },
+  { id: 2, title: "Anniversary", date: new Date(2023, 7, 3) },
 ];
 
 const Entries = () => {
-  const [showModal, setShowModal] = useState(false);
+  const [entriesList, setEntriesList] = useState(DUMMY_DATA);
   const navigate = useNavigate();
 
-  const onDeleteHandler = () => {
-    setShowModal(true);
+  const onAddHandler = () => {
+    navigate("/add-entry");
   };
 
-  const onEditHandler = () => {
-    // navigate to edit entry page
-    navigate("/edit-entry");
-    console.log("Editing...");
+  const onConfirmHandler = (entryId) => {
+    // deletes the entry
+    console.log(entryId);
+    setEntriesList((prevEntriesList) => {
+      const updatedEntries = prevEntriesList.filter(
+        (entry) => entry.id !== entryId
+      );
+      return updatedEntries;
+    });
   };
-
-  const onViewHandler = () => {
-    // navigate to view entry with id
-    navigate("/view-entry");
-  }
 
   let content;
-if (DUMMY_DATA.length === 0) {
-  content = (
-    <p>
-      <i>You have no entries.</i>
-    </p>
-  );
-} else {
-  content = (
-    <ul>
-      {DUMMY_DATA.map((entry) => (
-        <Entry title={entry.title} onDelete={onDeleteHandler} onEdit={onEditHandler} onView={onViewHandler} />
-      ))}
-    </ul>
-  );
-}
-
-  const onConfirmHandler = () => {
-    // deletes the entry
-    setShowModal(false);
-  };
-
-  const onCancelHandler = () => {
-    setShowModal(false);
-  };
+  if (entriesList.length === 0) {
+    content = (
+      <p>
+        <i>You have no entries.</i>
+      </p>
+    );
+  } else {
+    content = (
+      <ul>
+        {entriesList.map((entry) => (
+          <Entry
+            key={entry.id}
+            id={entry.id}
+            title={entry.title}
+            onConfirm={onConfirmHandler}
+          />
+        ))}
+      </ul>
+    );
+  }
 
   return (
     <>
-      {showModal && (
-        <ConfirmModal confirm={onConfirmHandler} cancel={onCancelHandler}/>
-      )}
       {content}
-      <button className={`${classes.card} ${classes.add}`}>+ Entry</button>
+      <button
+        className={`${classes.card} ${classes.add}`}
+        onClick={onAddHandler}
+      >
+        + Entry
+      </button>
     </>
   );
 };

@@ -1,5 +1,6 @@
 import Logo from "./UI/Logo";
 import Button from "./UI/Button";
+import { Link } from "react-router-dom";
 
 const Verify = () => {
   return (
@@ -16,6 +17,9 @@ const Verify = () => {
       </div>
 
       <Button>RESEND VERIFICATION</Button>
+      <div>
+        <Link to="/login">Back to Login</Link>
+      </div>
     </>
   );
 };

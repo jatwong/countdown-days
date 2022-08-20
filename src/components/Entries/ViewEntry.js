@@ -1,6 +1,15 @@
+import { useNavigate } from "react-router-dom";
+
 import classes from "./ViewEntry.module.css";
 
+import Button from "../UI/Button";
+
 const ViewEntry = () => {
+  const navigate = useNavigate();
+  const goBackHandler = () => {
+    navigate("/entries");
+  };
+
   return (
     <>
       <div className={classes.center}>
@@ -11,6 +20,7 @@ const ViewEntry = () => {
         <h3>0 days</h3>
         <h3>02 : 30 : 11</h3>
       </div>
+      <Button onClick={goBackHandler}>BACK</Button>
     </>
   );
 };

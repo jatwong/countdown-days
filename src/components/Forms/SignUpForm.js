@@ -5,6 +5,7 @@ import Button from "../UI/Button";
 import classes from "./Forms.module.css";
 import useInput from "../hooks/use-input";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 const SignUpForm = () => {
   const [checked, setIsChecked] = useState(false);
@@ -149,13 +150,16 @@ const SignUpForm = () => {
             onChange={onCheckHandler}
           />
           <label htmlFor="agree">
-            I agree to the <a href="/">terms &amp; conditions</a> and the{" "}
-            <a href="/">privacy policy</a>
+            I agree to the <a href="">terms &amp; conditions</a> and the{" "}
+            <a href="">privacy policy</a>
           </label>
         </div>
 
         <Button valid={!formIsValid}>SUBMIT</Button>
       </form>
+      <div>
+        <Link to="/login">Already a member? Login!</Link>
+      </div>
     </>
   );
 };

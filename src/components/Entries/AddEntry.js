@@ -1,8 +1,14 @@
+import { useNavigate } from "react-router-dom";
 import Input from "../Forms/Input/Input";
 import Button from "../UI/Button";
 import classes from "./EntryOptions.module.css";
 
 const AddEntry = () => {
+  const navigate = useNavigate();
+  const onCancelHandler = () => {
+    navigate("/entries");
+  };
+
   return (
     <>
       <form className={classes["add-entry"]}>
@@ -29,7 +35,10 @@ const AddEntry = () => {
             // onBlur={titleBlurHandler}
           />
         </div>
-        <Button>Add Entry</Button>
+        <div className={classes.actions}>
+          <Button>Add Entry</Button>
+          <Button type="button" onClick={onCancelHandler}>Cancel</Button>
+        </div>
       </form>
     </>
   );

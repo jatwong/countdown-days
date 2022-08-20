@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import useInput from "../hooks/use-input";
 
 import Logo from "../UI/Logo";
@@ -9,6 +9,8 @@ import classes from "./Forms.module.css";
 // import { useState } from "react";
 
 const LoginForm = () => {
+  const navigate = useNavigate();
+
   const {
     value: enteredEmail,
     isValid: emailIsValid,
@@ -36,7 +38,8 @@ const LoginForm = () => {
 
   const formSubmitHandler = (event) => {
     event.preventDefault();
-    console.log("Logging in...");
+    // console.log("Logging in...");
+    navigate("/entries");
   };
 
   return (
