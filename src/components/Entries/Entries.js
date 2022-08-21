@@ -13,10 +13,19 @@ const DUMMY_DATA = [
 
 const Entries = () => {
   const [entriesList, setEntriesList] = useState(DUMMY_DATA);
+
   const navigate = useNavigate();
 
   const onAddHandler = () => {
     navigate("/add-entry");
+  };
+
+  const addNewEntry = (newEntry) => {
+    // push to entries list -- get values from AddEntry
+    setEntriesList((prevEntriesList) => {
+      return [newEntry, ...prevEntriesList];
+    });
+    console.log(entriesList);
   };
 
   const onConfirmHandler = (entryId) => {
