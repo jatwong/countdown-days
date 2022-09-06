@@ -1,41 +1,45 @@
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import useInput from "../hooks/use-input";
+
 import Input from "../Forms/Input/Input";
 import Button from "../UI/Button";
 import classes from "./EntryOptions.module.css";
 
 const AddEntry = (props) => {
   const navigate = useNavigate();
-  const [enteredTitle, setEnteredTitle] = useState("");
-  const [enteredDate, setEnteredDate] = useState("");
 
-  const titleChangeHandler = (event) => {
-    setEnteredTitle(event.target.value);
-    console.log(enteredTitle);
-  };
+  const { value: enteredTitle, valueChangeHandler: titleChangeHandler } =
+    useInput((value) => value.trim("") !== "");
 
-  const dateChangeHandler = (event) => {
-    setEnteredDate(event.target.value);
-    console.log(enteredDate);
-  };
-  
+  const { value: enteredDate, valueChangeHandler: dateChangeHandler } =
+    useInput((value) => value.trim("") !== "");
+
+  // async, fetch (to post)
   const onSubmitHandler = (event) => {
-    // pass values to Entries list
     event.preventDefault();
 
-    const newEntry = {
-      key: 3,
-      id: 3,
-      title: enteredTitle,
-      date: new Date(enteredDate),
-    };
-    console.log(newEntry);
-    props.addNewEntry(newEntry);
-    navigate("/entries");
+    console.log(enteredTitle, enteredDate);
+
+    fetch("https://react-http-b7eb3-default-rtdb.firebaseio.com/entries", {
+      method: "POST",
+      body: JSON.stringify({
+        id: props.id,
+        title: { enteredTitle },
+        date: { enteredDate },
+      }),
+    });
+
+    // entriesCtx.addNewEntry({
+    //   id: props.id,
+    //   title: {enteredTitle},
+    //   date: {enteredDate},
+    // })
+
+    navigate("/entries", { replace: true });
   };
 
   const onCancelHandler = () => {
-    navigate("/entries");
+    navigate(-1);
   };
 
   return (

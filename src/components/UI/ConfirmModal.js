@@ -1,4 +1,7 @@
+import { useContext } from "react";
+
 import Button from "./Button";
+import EntriesContext from "../../store/entries-context";
 import classes from "./ConfirmModal.module.css";
 
 const Backdrop = () => {
@@ -6,11 +9,11 @@ const Backdrop = () => {
 };
 
 const ConfirmModal = (props) => {
-  const removeEntryHandler = () => {
-    // passing back the Id to list
-    props.confirm(props.entryId);
-  };
+  const entriesCtx = useContext(EntriesContext);
 
+  const removeEntryHandler = () => {
+    entriesCtx.removeEntry(props.entryId);
+  };
 
   return (
     <>

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 
 import ConfirmModal from "../UI/ConfirmModal";
@@ -6,10 +6,12 @@ import classes from "./Entry.module.css";
 
 import editIcon from "../../icons/pencilIcon.svg";
 import deleteIcon from "../../icons/deleteIcon.svg";
+import EntriesContext from "../../store/entries-context";
 
 const Entry = (props) => {
   const [showModal, setShowModal] = useState(false);
   const navigate = useNavigate();
+  const entriesCtx = useContext(EntriesContext);
 
   const onViewHandler = () => {
     // navigate to view entry with id
@@ -20,25 +22,21 @@ const Entry = (props) => {
     setShowModal(true);
   };
 
-  const onYesHandler = () => {
-    // passing Id to Entries list
-    props.onConfirm(props.id);
-  };
-
   const onCancelHandler = () => {
     setShowModal(false);
   };
 
   const onEditHandler = () => {
     // navigate to edit entry page
-    navigate("/edit-entry");
+    navigate("/edit-entry", { state: entriesCtx.entriesList.id });
     console.log("Editing...");
+    console.log(entriesCtx.entriesList.id);
   };
 
   return (
     <>
       {showModal && (
-        <ConfirmModal entryId={props.id} confirm={onYesHandler} cancel={onCancelHandler} />
+        <ConfirmModal entryId={props.id} cancel={onCancelHandler} />
       )}
       <div className={classes.card}>
         <img

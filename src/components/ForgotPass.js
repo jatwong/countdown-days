@@ -9,6 +9,9 @@ import classes from "./Forms/Forms.module.css";
 import useInput from "./hooks/use-input";
 
 const ForgotPass = () => {
+  // state for submission of form
+  const [confirm, setConfirm] = useState(false);
+
   const {
     value: enteredEmail,
     isValid: emailIsValid,
@@ -16,10 +19,10 @@ const ForgotPass = () => {
     valueChangeHandler: emailChangeHandler,
     inputBlurHandler: emailBlurHandler,
   } = useInput((value) => value.includes("@"));
-  const [confirm, setConfirm] = useState(false);
 
   const emailClasses = emailHasError ? classes.invalid : "";
 
+  // when submitting the form, sets the confirm state to true
   const formSubmitHandler = (event) => {
     event.preventDefault();
 
@@ -30,6 +33,8 @@ const ForgotPass = () => {
     <>
       <Logo />
       <h2>Forgot your password?</h2>
+      
+      {/* while confirm state is false, user still needs to input email */}
       {!confirm && (
         <>
           <div>
@@ -59,13 +64,14 @@ const ForgotPass = () => {
         </>
       )}
 
+      {/* confirm state is true and shows confirmation to user */}
       {confirm && (
         <div className="div">
           <p className={classes.instruct}>
             We've sent you an email with the link to reset your password.
           </p>
+          {/* include automatic redirect to login page */}
           <Link to="/login">Click here to go back to the login screen.</Link>{" "}
-          {/* or redirect after submission with delay? */}
         </div>
       )}
     </>

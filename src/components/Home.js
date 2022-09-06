@@ -6,7 +6,7 @@ const Home = () => {
       <li>
         <Link to="/login">Login</Link>
       </li>
-      <li>
+      {/* <li>
         <Link to="/signup">Signup</Link>
       </li>
       <li>
@@ -20,7 +20,7 @@ const Home = () => {
       </li>
       <li>
         <Link to="/view-entry">View Entry (hard-coded exampe)</Link>
-      </li>
+      </li> */}
     </ul>
   );
 };
