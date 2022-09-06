@@ -20,7 +20,8 @@ const SignUpForm = () => {
     setIsChecked(!checked);
   };
 
-  // data with alias names from custom hook
+  // data with alias names from custom input hook
+  // data for Name
   const {
     value: enteredName,
     isValid: nameIsValid,
@@ -31,6 +32,7 @@ const SignUpForm = () => {
 
   const nameClasses = nameHasError ? classes.invalid : "";
 
+  // data for Email
   const {
     value: enteredEmail,
     isValid: emailIsValid,
@@ -41,6 +43,7 @@ const SignUpForm = () => {
 
   const emailClasses = emailHasError ? classes.invalid : "";
 
+  // data for Password
   const {
     value: enteredPassword,
     isValid: passwordIsValid,
@@ -51,6 +54,7 @@ const SignUpForm = () => {
 
   const passwordClasses = passwordHasError ? classes.invalid : "";
 
+  // data for Confirm Password
   const {
     value: confirmedPassword,
     isValid: confirmedPassIsValid,
@@ -156,6 +160,7 @@ const SignUpForm = () => {
                 label="Password"
                 type="password"
                 id="password"
+                minlength="8"
                 placeholder="Enter your password"
                 value={enteredPassword}
                 onChange={passwordChangeHandler}
@@ -174,6 +179,7 @@ const SignUpForm = () => {
                 label="Confirm Password"
                 type="password"
                 id="confirm-password"
+                minlength="8"
                 placeholder="Enter your password again"
                 value={confirmedPassword}
                 onChange={confirmedPassChangeHandler}

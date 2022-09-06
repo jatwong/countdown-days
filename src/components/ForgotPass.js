@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 import Input from "./Forms/Input/Input";
@@ -11,6 +11,7 @@ import useInput from "./hooks/use-input";
 const ForgotPass = () => {
   // state for submission of form
   const [confirm, setConfirm] = useState(false);
+  const navigate = useNavigate();
 
   const {
     value: enteredEmail,
@@ -27,13 +28,17 @@ const ForgotPass = () => {
     event.preventDefault();
 
     setConfirm(true);
+
+    setTimeout(() => {
+      navigate("/login");
+    }, 1000);
   };
 
   return (
     <>
       <Logo />
       <h2>Forgot your password?</h2>
-      
+
       {/* while confirm state is false, user still needs to input email */}
       {!confirm && (
         <>
@@ -70,8 +75,10 @@ const ForgotPass = () => {
           <p className={classes.instruct}>
             We've sent you an email with the link to reset your password.
           </p>
-          {/* include automatic redirect to login page */}
-          <Link to="/login">Click here to go back to the login screen.</Link>{" "}
+          <p>
+            You will be automatically redirected to the login page or click{" "}
+            <Link to="/login">here</Link>.
+          </p>
         </div>
       )}
     </>
