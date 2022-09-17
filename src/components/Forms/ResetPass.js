@@ -25,29 +25,9 @@ const ResetPass = () => {
 
   const passwordClasses = passwordHasError ? classes.invalid : "";
 
-  // data for Confirm Password
-  const {
-    value: confirmedPassword,
-    isValid: confirmedPassIsValid,
-    hasError: confirmedPassHasError,
-    valueChangeHandler: confirmedPassChangeHandler,
-    inputBlurHandler: confirmedPassBlurHandler,
-  } = useInput((value) => value.trim("") !== "" && value === enteredPassword);
-
-  const confirmPassClasses = confirmedPassHasError ? classes.invalid : "";
-
-  // conditionally set error messages
-  let errorMsg = (
-    <p className={classes.error}>Please re-enter your password.</p>
-  );
-
-  if (confirmedPassword !== enteredPassword) {
-    errorMsg = <p className={classes.error}>Passwords do not match.</p>;
-  }
-
   // checks that the form is valid
   let formIsValid = false;
-  if (passwordIsValid && confirmedPassIsValid) {
+  if (passwordIsValid) {
     formIsValid = true;
   }
 
@@ -89,20 +69,6 @@ const ResetPass = () => {
                 Invalid password. Password must have a minimum of 8 characters.
               </p>
             )}
-          </div>
-          <div className={confirmPassClasses}>
-            <Input
-              for="confirm-password"
-              label="Confirm Password"
-              type="password"
-              id="confirm-password"
-              minlength="8"
-              placeholder="Re-enter new password"
-              value={confirmedPassword}
-              onChange={confirmedPassChangeHandler}
-              onBlur={confirmedPassBlurHandler}
-            />
-            {confirmedPassHasError && errorMsg}
           </div>
 
           <Button valid={!formIsValid}>RESET</Button>

@@ -7,6 +7,7 @@ import useInput from "../hooks/use-input";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import Verify from "../Verify";
+import ErrorPage from "../ErrorPage";
 
 const SignUpForm = () => {
   // state for checkbox
@@ -106,13 +107,13 @@ const SignUpForm = () => {
     })
       .then((res) => {
         if (res.ok) {
-          return res.json();
+          <Verify />
         }
       })
       // when there's an error, show error page/message
       // make sure it cannot show verification
       .catch((err) => {
-        alert(err.message);
+        <ErrorPage />;
       });
 
     setIsSubmitted(true);

@@ -39,7 +39,22 @@ const LoginForm = () => {
   const formSubmitHandler = (event) => {
     event.preventDefault();
     // console.log("Logging in...");
-    navigate("/entries");
+
+    fetch("http://localhost:9002/login", {
+      method: "POST",
+      body: JSON.stringify({
+        email: enteredEmail,
+        password: enteredPassword,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }).then((res) => {
+      if (res.ok) {
+        const token = res.headers.get("Set-Cookie");
+        navigate("/entries", { replace: true });
+      }
+    });
   };
 
   return (
@@ -71,7 +86,11 @@ const LoginForm = () => {
             onChange={passwordChangeHandler}
             onBlur={passwordBlurHandler}
           />
-          {passwordHasError && <p className={classes.error}>Invalid password. Password must have a minimum of 8 characters.</p>}
+          {passwordHasError && (
+            <p className={classes.error}>
+              Invalid password. Password must have a minimum of 8 characters.
+            </p>
+          )}
         </div>
         <Button valid={!formIsValid}>LOGIN</Button>
       </form>

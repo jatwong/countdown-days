@@ -10,6 +10,7 @@ import ViewEntry from "./components/Entries/ViewEntry";
 import EditEntry from "./components/Entries/EditEntry";
 import EntriesProvider from "./store/EntriesProvider";
 import ResetPass from "./components/Forms/ResetPass";
+import ErrorPage from "./components/ErrorPage";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
           <Route path="/view-entry" element={<ViewEntry />} />
           <Route path="/edit-entry" element={<EditEntry />} />
           <Route path="/reset-password" element={<ResetPass />} />
+          <Route path="/error" element={<ErrorPage />} />
         </Routes>
       </div>
     </EntriesProvider>
