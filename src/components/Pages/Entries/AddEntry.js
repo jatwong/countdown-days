@@ -1,8 +1,8 @@
 import { useNavigate } from "react-router-dom";
-import useInput from "../hooks/use-input";
+import useInput from "../../hooks/use-input";
 
-import Input from "../Forms/Input/Input";
-import Button from "../UI/Button";
+import Input from "../../hooks/use-input";
+import Button from "../../UI/Button";
 import classes from "./EntryOptions.module.css";
 
 const AddEntry = (props) => {

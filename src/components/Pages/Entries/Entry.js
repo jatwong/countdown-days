@@ -1,12 +1,12 @@
 import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 
-import ConfirmModal from "../UI/ConfirmModal";
+import ConfirmModal from "../../UI/ConfirmModal";
 import classes from "./Entry.module.css";
 
-import editIcon from "../../icons/pencilIcon.svg";
-import deleteIcon from "../../icons/deleteIcon.svg";
-import EntriesContext from "../../store/entries-context";
+import editIcon from "../../../icons/pencilIcon.svg";
+import deleteIcon from "../../../icons/deleteIcon.svg";
+import EntriesContext from "../../../store/entries-context";
 
 const Entry = (props) => {
   const [showModal, setShowModal] = useState(false);

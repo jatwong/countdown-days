@@ -1,9 +1,9 @@
 import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 
-import EntriesContext from "../../store/entries-context";
+import EntriesContext from "../../../store/entries-context";
 import Input from "../Forms/Input/Input";
-import Button from "../UI/Button";
+import Button from "../../UI/Button";
 
 import classes from "./EntryOptions.module.css";
 

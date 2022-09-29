@@ -1,15 +1,15 @@
 import { Route, Routes } from "react-router-dom";
 
-import LoginForm from "./components/Forms/LoginForm";
-import SignUpForm from "./components/Forms/SignUpForm";
-import ForgotPass from "./components/ForgotPass";
-import Entries from "./components/Entries/Entries";
-import AddEntry from "./components/Entries/AddEntry";
-import ViewEntry from "./components/Entries/ViewEntry";
-import EditEntry from "./components/Entries/EditEntry";
-import ResetPass from "./components/Forms/ResetPass";
-import ErrorPage from "./components/ErrorPage";
-import Verify from "./components/Verify";
+import LoginForm from "./components/Pages/Forms/LoginForm";
+import SignUpForm from "./components/Pages/Forms/SignUpForm";
+import ForgotPass from "./components/Pages/ForgotPass";
+import Entries from "./components/Pages/Entries/Entries";
+import AddEntry from "./components/Pages/Entries/AddEntry";
+import ViewEntry from "./components/Pages/Entries/ViewEntry";
+import EditEntry from "./components/Pages/Entries/EditEntry";
+import ResetPass from "./components/Pages/Forms/ResetPass";
+import ErrorPage from "./components/Pages/ErrorPage";
+import Verify from "./components/Pages/Verify";
 import { Fragment } from "react";
 
 function App() {

@@ -111,16 +111,17 @@ const SignUpForm = () => {
       .then((res) => {
         console.log(res);
         if (res.status === 200) {
-          statCtx.statusCode(res.status, res.statusText);
+          // statCtx.statusCode(res.status, res.statusText);
           setIsSubmitted(true);
-          return res.json();
+          // return res.json();
         } else {
-          statCtx.errorPage();
+          statCtx.errorPage(true);
           statCtx.statusCode(res.status, res.statusText);
           navigate("/error");
         }
       })
       .catch((err) => {
+        statCtx.errorPage(false);
         navigate("/error");
       });
 

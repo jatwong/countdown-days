@@ -1,12 +1,12 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 
-import Input from "./Forms/Input/Input";
-import Button from "./UI/Button";
-import Logo from "./UI/Logo";
+import Input from "../hooks/use-input";
+import Button from "../UI/Button";
+import Logo from "../UI/Logo";
 
 import classes from "./Forms/Forms.module.css";
-import useInput from "./hooks/use-input";
+import useInput from "../hooks/use-input";
 
 const ForgotPass = () => {
   // state for submission of form

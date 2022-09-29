@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import Entry from "./Entry";
 
 import classes from "./Entries.module.css";
-import EntriesContext from "../../store/entries-context";
+import EntriesContext from "../../../store/entries-context";
 
 const Entries = () => {
   const navigate = useNavigate();

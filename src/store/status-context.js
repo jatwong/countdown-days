@@ -2,21 +2,21 @@ import React, { useState } from "react";
 
 const StatusContext = React.createContext({
   statusCode: (code, msg) => {},
-  errorPage: () => {},
-  errorPageState: "",
+  errorPage: (hasStatus) => {},
+  errorPageState: false,
   codeMsg: "",
-  code: "",
+  code: 0,
 });
 
 export const StatusContextProvider = (props) => {
   // set error page instead of default error page
   const [errorCode, setErrorCode] = useState(false);
-  const errorPageHandler = () => {
-    setErrorCode(true);
+  const errorPageHandler = (hasStatus) => {
+    setErrorCode(hasStatus);
   };
 
   // store status code
-  const [code, setCode] = useState("");
+  const [code, setCode] = useState(0);
   const [codeMsg, setCodeMsg] = useState("");
   const statusHandler = (code, msg) => {
     setCode(code);
