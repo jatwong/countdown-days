@@ -1,18 +1,21 @@
-import Logo from "../UI/Logo";
+import Logo from "../../UI/Logo";
 import Input from "./Input/Input";
-import Button from "../UI/Button";
+import Button from "../../UI/Button";
 
 import classes from "./Forms.module.css";
-import useInput from "../hooks/use-input";
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import useInput from "../../hooks/use-input";
+import { useState, useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import Verify from "../Verify";
-import ErrorPage from "../ErrorPage";
+import StatusContext from "../../../store/status-context";
 
 const SignUpForm = () => {
+  const statCtx = useContext(StatusContext);
+  const navigate = useNavigate();
+
   // state for checkbox
   const [checked, setIsChecked] = useState(false);
-  
+
   // state for submission of form
   const [submitted, setIsSubmitted] = useState(false);
 
@@ -106,17 +109,61 @@ const SignUpForm = () => {
       },
     })
       .then((res) => {
-        if (res.ok) {
-          <Verify />
+        console.log(res);
+        if (res.status === 200) {
+          statCtx.statusCode(res.status, res.statusText);
+          setIsSubmitted(true);
+          return res.json();
+        } else {
+          statCtx.errorPage();
+          statCtx.statusCode(res.status, res.statusText);
+          navigate("/error");
         }
       })
-      // when there's an error, show error page/message
-      // make sure it cannot show verification
       .catch((err) => {
-        <ErrorPage />;
+        navigate("/error");
       });
 
-    setIsSubmitted(true);
+    // .then((res) => {
+    //   if (res.status === 200) {
+    //     return res.json();
+    //   } else {
+    //     // let message = "";
+    //     // if res.status === 400 {
+    //     //   message = "400 Bad Request"
+    //     // }
+    //     throw new Error(`${res.status} ${res.statusText}`);
+    //   }
+    // } else if (res.status === 404) {
+    //   // TODO: Redirect 404 Not found page
+    //   navigate("/error");
+    // } else if (res.status === 400) {
+    //   // TODO: 404 bad request, maybe show a notification at lower left?
+    //   // Or to keep it simple, alert?
+    //   // This is nice-to-have but not required.
+    //   // DO NOTHING (for now)
+    // } else {
+    //   // E.g. 500, 503, 5XX, and other 4XX
+    //   // It will be in the network tab
+    //   // DO NOTHING (for now)
+    // }
+    // })
+    // .then((resBody) => {
+    //   // On a 200 OK, get back the JSON
+    //   if (resBody.ok) {
+    //     navigate("/verify?email=" + enteredEmail);
+    //   } else {
+    //     throw new Error(`${resBody.message}`);
+    //   }
+    // })
+    // .catch((err) => {
+    //   // Note: This means that it could not reach (any) server
+    //   // to respond to the fetch (request)
+    //   console.log(err);
+    //   navigate("/error?message=" + err);
+    // });
+
+    // setIsSubmitted(true);
   };
 
   return (
@@ -197,8 +244,9 @@ const SignUpForm = () => {
                 onChange={onCheckHandler}
               />
               <label htmlFor="agree">
-                I agree to the <a href="">terms &amp; conditions</a> and the{" "}
-                <a href="">privacy policy</a>
+                I agree to the{" "}
+                <a href="http://localhost:3000/todo">terms &amp; conditions</a>{" "}
+                and the <a href="http://localhost:3000/todo">privacy policy</a>
               </label>
             </div>
 
@@ -211,7 +259,7 @@ const SignUpForm = () => {
       )}
 
       {/* when user submits form, show verification page */}
-      {submitted && <Verify />}
+      {submitted && <Verify email={enteredEmail} />}
     </>
   );
 };

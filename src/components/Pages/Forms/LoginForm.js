@@ -6,6 +6,7 @@ import Input from "./Input/Input";
 import Button from "../UI/Button";
 
 import classes from "./Forms.module.css";
+// import Cookies from "js-cookie";
 // import { useState } from "react";
 
 const LoginForm = () => {
@@ -42,17 +43,23 @@ const LoginForm = () => {
 
     fetch("http://localhost:9002/login", {
       method: "POST",
+      credentials: "include",
       body: JSON.stringify({
         email: enteredEmail,
         password: enteredPassword,
       }),
-      headers: {
-        "Content-Type": "application/json",
-      },
     }).then((res) => {
       if (res.ok) {
-        const token = res.headers.get("Set-Cookie");
-        navigate("/entries", { replace: true });
+        // const token = document.cookie; // This seems to be how to retrieve the browser cookie
+        // console.log(token);
+        return res.json();
+      }
+    }).then((data) => {
+      console.log(data);
+      if (data.ok) {
+        navigate("/entries");
+      } else {
+        console.log(data.message);
       }
     });
   };

@@ -1,12 +1,15 @@
+import React, { useState } from "react";
+
 const AuthContext = React.createContext({
-    token: "",
-    isLoggedIn: false,
-    login: (token) => {},
-    logout: () => {},
+  token: "",
+  isLoggedIn: false,
+  login: (token) => {},
+  logout: () => {},
 });
 
 export const AuthContextProvider = (props) => {
   // retrieve and store token
+  const [token, setToken] = useState(null);
 
   // login handler receives token from BE
   const loginHandler = () => {};

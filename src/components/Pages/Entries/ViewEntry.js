@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 
 import classes from "./ViewEntry.module.css";
 
-import Button from "../UI/Button";
+import Button from "../../UI/Button";
 
 const ViewEntry = () => {
   const navigate = useNavigate();
