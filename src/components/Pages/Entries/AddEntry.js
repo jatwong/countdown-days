@@ -1,12 +1,15 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import useInput from "../../hooks/use-input";
 
-import Input from "../../hooks/use-input";
+import Input from "../Forms/Input/Input";
 import Button from "../../UI/Button";
 import classes from "./EntryOptions.module.css";
 
 const AddEntry = (props) => {
+  const todayDate = new Date();
+
   const navigate = useNavigate();
+  const { entryId } = useParams();
 
   const { value: enteredTitle, valueChangeHandler: titleChangeHandler } =
     useInput((value) => value.trim("") !== "");
@@ -14,26 +17,22 @@ const AddEntry = (props) => {
   const { value: enteredDate, valueChangeHandler: dateChangeHandler } =
     useInput((value) => value.trim("") !== "");
 
-  // async, fetch (to post)
+
   const onSubmitHandler = (event) => {
     event.preventDefault();
 
-    console.log(enteredTitle, enteredDate);
+    const newDate = new Date(enteredDate);
+    // apply correct timezone to date object
+    newDate.setMinutes(newDate.getMinutes() + newDate.getTimezoneOffset())
 
-    fetch("https://react-http-b7eb3-default-rtdb.firebaseio.com/entries", {
+    fetch("http://localhost:9003/create", {
       method: "POST",
+      credentials: "include",
       body: JSON.stringify({
-        id: props.id,
-        title: { enteredTitle },
-        date: { enteredDate },
+        name: enteredTitle,
+        date: newDate.toJSON(),
       }),
     });
-
-    // entriesCtx.addNewEntry({
-    //   id: props.id,
-    //   title: {enteredTitle},
-    //   date: {enteredDate},
-    // })
 
     navigate("/entries", { replace: true });
   };
@@ -48,6 +47,8 @@ const AddEntry = (props) => {
         <Input
           className={classes.title}
           for="title"
+          max="16"
+          min="1"
           label="Title"
           type="text"
           id="title"
@@ -61,6 +62,7 @@ const AddEntry = (props) => {
             for="date"
             label="Choose a date"
             type="date"
+            // min=
             id="date"
             value={enteredDate}
             onChange={dateChangeHandler}

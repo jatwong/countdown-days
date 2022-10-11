@@ -4,6 +4,8 @@ const Input = (props) => {
       <label htmlFor={props.for}>{props.label}</label>
       <input
         className={props.className}
+        maxLength={props.max}
+        min={props.min}
         type={props.type}
         id={props.id}
         placeholder={props.placeholder}

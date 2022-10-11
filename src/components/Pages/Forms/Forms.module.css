@@ -76,3 +76,8 @@ input[type="checkbox"]:focus {
   font-size: small;
   margin-left: 0.5rem;
 }
+
+.error2 {
+  color: #C53A74;
+  font-size: small;
+}

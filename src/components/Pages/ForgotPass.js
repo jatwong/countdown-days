@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 
-import Input from "../hooks/use-input";
+import Input from "./Forms/Input/Input";
 import Button from "../UI/Button";
 import Logo from "../UI/Logo";
 
@@ -31,7 +31,7 @@ const ForgotPass = () => {
 
     setTimeout(() => {
       navigate("/login");
-    }, 1000);
+    }, 3000);
   };
 
   return (
@@ -76,8 +76,10 @@ const ForgotPass = () => {
             We've sent you an email with the link to reset your password.
           </p>
           <p>
-            You will be automatically redirected to the login page or click{" "}
-            <Link to="/login">here</Link>.
+            <Link to="/login">
+              You will be automatically redirected to the login page or click{" "}
+              here.
+            </Link>
           </p>
         </div>
       )}

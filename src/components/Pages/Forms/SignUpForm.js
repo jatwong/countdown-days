@@ -7,10 +7,10 @@ import useInput from "../../hooks/use-input";
 import { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Verify from "../Verify";
-import StatusContext from "../../../store/status-context";
+import RegStatusContext from "../../../store/regStatus-context";
 
 const SignUpForm = () => {
-  const statCtx = useContext(StatusContext);
+  const statCtx = useContext(RegStatusContext);
   const navigate = useNavigate();
 
   // state for checkbox
@@ -18,6 +18,9 @@ const SignUpForm = () => {
 
   // state for submission of form
   const [submitted, setIsSubmitted] = useState(false);
+
+  // state for error message
+  const [message, setMessage] = useState("");
 
   // toggles the status for checkbox
   const onCheckHandler = () => {
@@ -92,10 +95,8 @@ const SignUpForm = () => {
 
   // when submitting the form
   // post name, email, password to database
-  // and catch any errors/show relevant error message/page
   const formSubmitHandler = (event) => {
     event.preventDefault();
-    console.log("Submitting form...");
 
     fetch("http://localhost:9002/register", {
       method: "POST",
@@ -108,68 +109,36 @@ const SignUpForm = () => {
         "Content-Type": "application/json",
       },
     })
+    // Server up means it can be caught in the .then
+    // even if the response status is not 200 (E.G. 50X, 40X)
       .then((res) => {
-        console.log(res);
         if (res.status === 200) {
-          // statCtx.statusCode(res.status, res.statusText);
-          setIsSubmitted(true);
-          // return res.json();
+          return res.json().then((data) => {
+            if (!data.ok) { // From the backend, meaning email has been taken
+              setIsSubmitted(false);
+              setMessage(data.message);
+            } else {
+              setIsSubmitted(true);
+              setMessage("");
+            }
+          });
         } else {
-          statCtx.errorPage(true);
-          statCtx.statusCode(res.status, res.statusText);
+          // when status code is not 200 or error
+          statCtx.statusHandler(true, res.status, res.statusText);
           navigate("/error");
         }
       })
+      // Server down means it will go into the .catch, there's no server reached so there's no status code
       .catch((err) => {
-        statCtx.errorPage(false);
+        statCtx.reset();
         navigate("/error");
       });
-
-    // .then((res) => {
-    //   if (res.status === 200) {
-    //     return res.json();
-    //   } else {
-    //     // let message = "";
-    //     // if res.status === 400 {
-    //     //   message = "400 Bad Request"
-    //     // }
-    //     throw new Error(`${res.status} ${res.statusText}`);
-    //   }
-    // } else if (res.status === 404) {
-    //   // TODO: Redirect 404 Not found page
-    //   navigate("/error");
-    // } else if (res.status === 400) {
-    //   // TODO: 404 bad request, maybe show a notification at lower left?
-    //   // Or to keep it simple, alert?
-    //   // This is nice-to-have but not required.
-    //   // DO NOTHING (for now)
-    // } else {
-    //   // E.g. 500, 503, 5XX, and other 4XX
-    //   // It will be in the network tab
-    //   // DO NOTHING (for now)
-    // }
-    // })
-    // .then((resBody) => {
-    //   // On a 200 OK, get back the JSON
-    //   if (resBody.ok) {
-    //     navigate("/verify?email=" + enteredEmail);
-    //   } else {
-    //     throw new Error(`${resBody.message}`);
-    //   }
-    // })
-    // .catch((err) => {
-    //   // Note: This means that it could not reach (any) server
-    //   // to respond to the fetch (request)
-    //   console.log(err);
-    //   navigate("/error?message=" + err);
-    // });
-
-    // setIsSubmitted(true);
   };
 
   return (
     <>
       <Logo />
+      {message !== "" && <p className={classes.error2}>{message}</p>}
 
       {/* when the form is not submitted, inputs are rendered */}
       {!submitted && (

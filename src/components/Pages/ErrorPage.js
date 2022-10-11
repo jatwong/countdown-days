@@ -1,27 +1,30 @@
 import { useContext } from "react";
-import StatusContext from "../../store/status-context";
+import RegStatusContext from "../../store/regStatus-context";
 import Logo from "../UI/Logo";
 
 const ErrorPage = () => {
-  const statCtx = useContext(StatusContext);
+  const statCtx = useContext(RegStatusContext);
+
+  // default error page
+  let errPage = (
+    <div className="div">
+      <h1>Uh oh!</h1>
+      <p>Something went wrong!</p>
+    </div>
+  );
+  if (statCtx.hasStatus) {
+    // error page with code
+    errPage = (
+      <h1>
+        {statCtx.statusCode} {statCtx.statusText}
+      </h1>
+    );
+  }
 
   return (
     <>
       <Logo />
-    {/* default error page */}
-      {!statCtx.errorPageState && (
-        <div className="div">
-          <h1>Uh oh!</h1>
-          <p>Something went wrong!</p>
-        </div>
-      )}
-      
-      {/* error page with code */}
-      {statCtx.errorPageState && (
-        <h1>
-          {statCtx.code} {statCtx.codeMsg}
-        </h1>
-      )}
+      {errPage}
     </>
   );
 };

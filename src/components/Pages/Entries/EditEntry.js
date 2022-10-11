@@ -1,5 +1,5 @@
-import { useNavigate } from "react-router-dom";
-import { useContext } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { useContext, useState } from "react";
 
 import EntriesContext from "../../../store/entries-context";
 import Input from "../Forms/Input/Input";
@@ -7,14 +7,55 @@ import Button from "../../UI/Button";
 
 import classes from "./EntryOptions.module.css";
 
-const EditEntry = (props) => {
+const EditEntry = () => {
   const navigate = useNavigate();
   const entriesCtx = useContext(EntriesContext);
+  const { entryId } = useParams();
+
+  const entryToUpdate = entriesCtx.entriesMap[parseInt(entryId)];
+  const initialTitle = entryToUpdate.title;
+  const date = new Date(entryToUpdate.date);
+
+  const initialDate = `${date.getFullYear()}-${
+    date.getMonth() + 1
+  }-${date.getDate()}`;
+
+  const [newTitle, setNewTitle] = useState(initialTitle);
+  const [newDate, setNewDate] = useState(initialDate);
+
+  const newTitleHandler = (event) => {
+    setNewTitle(event.target.value);
+  };
+
+  const newDateHandler = (event) => {
+    setNewDate(event.target.value);
+  };
 
   const onSaveHandler = (event) => {
     event.preventDefault();
 
-    console.log(entriesCtx.entriesList.title);
+    // apply correct timezone to newDate
+    const enteredDate = new Date(newDate);
+    enteredDate.setMinutes(
+      enteredDate.getMinutes() + enteredDate.getTimezoneOffset()
+    );
+
+    fetch("http://localhost:9003/update", {
+      method: "POST",
+      credentials: "include",
+      body: JSON.stringify({
+        id: parseInt(entryId),
+        name: newTitle,
+        date: enteredDate.toJSON(),
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }).then((res) => {
+      if (res.status == 200) {
+        navigate("/entries");
+      }
+    });
   };
 
   const onCancelHandler = () => {
@@ -30,9 +71,8 @@ const EditEntry = (props) => {
           label="Title"
           type="text"
           id="title"
-          defaultValue={props.title}
-          // onChange={titleChangeHandler}
-          // onBlur={titleBlurHandler}
+          value={newTitle}
+          onChange={newTitleHandler}
         />
         <div className={classes["date-div"]}>
           <Input
@@ -41,9 +81,8 @@ const EditEntry = (props) => {
             label="Choose a date"
             type="date"
             id="date"
-            defaultValue={props.date}
-            // onChange={titleChangeHandler}
-            // onBlur={titleBlurHandler}
+            value={newDate}
+            onChange={newDateHandler}
           />
         </div>
         <div className={classes.actions}>

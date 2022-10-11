@@ -1,25 +1,46 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 const AuthContext = React.createContext({
   token: "",
   isLoggedIn: false,
-  login: (token) => {},
+  login: () => {},
   logout: () => {},
 });
 
+// function to retrieve cookie (token) value only
+const getCookie = (name) => {
+  const cookieArr = document.cookie.split(";");
+  for (let i = 0; i < cookieArr.length; i++) {
+    const cookiePair = cookieArr[i].split("=");
+    if (name === cookiePair[0].trim()) {
+      return decodeURIComponent(cookiePair[1]);
+    }
+  }
+  return "";
+};
+
 export const AuthContextProvider = (props) => {
-  // retrieve and store token
-  const [token, setToken] = useState(null);
+  const [token, setToken] = useState("");
 
-  // login handler receives token from BE
-  const loginHandler = () => {};
+  useEffect(() => {
+    setToken(getCookie("jwt"));
+  }, []);
 
-  // logout handler removes token etc.
-  const logoutHandler = () => {};
+  // loginHandler is called upon login
+  // Token is set onto the React state
+  const loginHandler = () => {
+    setToken(getCookie("jwt"));
+  };
+
+  // logoutHandler is called upon logout
+  // Token is removed from the React state
+  const logoutHandler = () => {
+    setToken("");
+  };
 
   const authContext = {
     token: token,
-    isLoggedIn: false,
+    isLoggedIn: token.length > 0,
     login: loginHandler,
     logout: logoutHandler,
   };

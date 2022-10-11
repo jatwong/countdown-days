@@ -1,16 +1,18 @@
+import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import useInput from "../Forms/Input/Input";
+import useInput from "../../hooks/use-input";
+import AuthContext from "../../../store/auth-context";
 
 import Logo from "../../UI/Logo";
-import Input from "../Forms/Input/Input";
+import Input from "./Input/Input";
 import Button from "../../UI/Button";
 
 import classes from "./Forms.module.css";
-// import Cookies from "js-cookie";
-// import { useState } from "react";
 
 const LoginForm = () => {
   const navigate = useNavigate();
+  const authCtx = useContext(AuthContext);
+  const [error, setError] = useState(false);
 
   const {
     value: enteredEmail,
@@ -39,7 +41,6 @@ const LoginForm = () => {
 
   const formSubmitHandler = (event) => {
     event.preventDefault();
-    // console.log("Logging in...");
 
     fetch("http://localhost:9002/login", {
       method: "POST",
@@ -49,17 +50,20 @@ const LoginForm = () => {
         password: enteredPassword,
       }),
     }).then((res) => {
-      if (res.ok) {
-        // const token = document.cookie; // This seems to be how to retrieve the browser cookie
-        // console.log(token);
-        return res.json();
-      }
-    }).then((data) => {
-      console.log(data);
-      if (data.ok) {
-        navigate("/entries");
-      } else {
-        console.log(data.message);
+      if (res.status === 200) {
+        return res
+          .json()
+          .then((data) => {
+            if (data.ok) {
+              authCtx.login();
+              navigate("/entries", { replace: true });
+            } else {
+              setError(true);
+            }
+          })
+          .catch((err) => {
+            console.log(err.message);
+          });
       }
     });
   };
@@ -67,6 +71,10 @@ const LoginForm = () => {
   return (
     <>
       <Logo />
+      {error && (
+        <p className={classes.error}>Username and/or password is incorrect.</p>
+      )}
+
       <form className={classes.form} onSubmit={formSubmitHandler}>
         <div className={emailClasses}>
           <Input
