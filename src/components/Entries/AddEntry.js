@@ -1,15 +1,12 @@
-import { useNavigate, useParams } from "react-router-dom";
-import useInput from "../../hooks/use-input";
+import { useNavigate } from "react-router-dom";
+import useInput from "../hooks/use-input";
 
 import Input from "../Forms/Input/Input";
-import Button from "../../UI/Button";
+import Button from "../UI/Button";
 import classes from "./EntryOptions.module.css";
 
 const AddEntry = (props) => {
-  const todayDate = new Date();
-
   const navigate = useNavigate();
-  const { entryId } = useParams();
 
   const { value: enteredTitle, valueChangeHandler: titleChangeHandler } =
     useInput((value) => value.trim("") !== "");
@@ -47,7 +44,7 @@ const AddEntry = (props) => {
         <Input
           className={classes.title}
           for="title"
-          max="16"
+          max="25"
           min="1"
           label="Title"
           type="text"

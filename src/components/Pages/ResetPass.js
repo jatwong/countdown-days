@@ -1,7 +1,7 @@
 import ForgotPassForm from "../Forms/ForgotPassForm";
 
-const ForgotPass = () => {
+const ResetPass = () => {
     return <ForgotPassForm />
 };
 
-export default ForgotPass;
+export default ResetPass;

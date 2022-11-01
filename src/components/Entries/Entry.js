@@ -1,12 +1,12 @@
 import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-import ConfirmModal from "../../UI/ConfirmModal";
+import ConfirmModal from "../UI/ConfirmModal";
 import classes from "./Entry.module.css";
 
-import editIcon from "../../../icons/pencilIcon.svg";
-import deleteIcon from "../../../icons/deleteIcon.svg";
-import RegStatusContext from "../../../store/regStatus-context";
+import editIcon from "../../icons/pencilIcon.svg"
+import deleteIcon from "../../icons/deleteIcon.svg";
+import RegStatusContext from "../../store/regStatus-context";
 
 // how each entry should be rendered (mapped here)
 const Entry = (props) => {

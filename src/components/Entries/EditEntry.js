@@ -1,9 +1,9 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { useContext, useState } from "react";
 
-import EntriesContext from "../../../store/entries-context";
+import EntriesContext from "../../store/entries-context";
 import Input from "../Forms/Input/Input";
-import Button from "../../UI/Button";
+import Button from "../UI/Button";
 
 import classes from "./EntryOptions.module.css";
 
@@ -16,9 +16,29 @@ const EditEntry = () => {
   const initialTitle = entryToUpdate.title;
   const date = new Date(entryToUpdate.date);
 
-  const initialDate = `${date.getFullYear()}-${
-    date.getMonth() + 1
-  }-${date.getDate()}`;
+  // getting the 2-digit month & day
+  const getMonth2Digits = (date) => {
+    const month = date.getMonth() + 1;
+
+    if (month < 10) {
+      return "0" + month;
+    }
+    return month;
+  };
+
+  const getDay2Digits = (date) => {
+    const day = date.getDate();
+
+    if (day < 10) {
+      return "0" + day;
+    }
+    return day;
+  };
+
+  // setting the initial date
+  const initialDate = `${date.getFullYear()}-${getMonth2Digits(
+    date
+  )}-${getDay2Digits(date)}`;
 
   const [newTitle, setNewTitle] = useState(initialTitle);
   const [newDate, setNewDate] = useState(initialDate);
@@ -40,6 +60,8 @@ const EditEntry = () => {
       enteredDate.getMinutes() + enteredDate.getTimezoneOffset()
     );
 
+    console.log(newDate);
+
     fetch("http://localhost:9003/update", {
       method: "POST",
       credentials: "include",
@@ -52,7 +74,7 @@ const EditEntry = () => {
         "Content-Type": "application/json",
       },
     }).then((res) => {
-      if (res.status == 200) {
+      if (res.status === 200) {
         navigate("/entries");
       }
     });
@@ -68,6 +90,8 @@ const EditEntry = () => {
         <Input
           className={classes.title}
           for="title"
+          max="25"
+          min="1"
           label="Title"
           type="text"
           id="title"

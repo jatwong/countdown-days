@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-const Verify = (props) => {
+const RegisterVerify = (props) => {
   return (
     <>
       <h2>Almost there!</h2>
@@ -20,4 +20,4 @@ const Verify = (props) => {
   );
 };
 
-export default Verify;
+export default RegisterVerify;

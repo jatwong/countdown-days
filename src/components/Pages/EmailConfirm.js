@@ -1,10 +1,11 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 import Logo from "../UI/Logo";
 import Spinner from "../UI/Spinner";
 
-const Confirmation = () => {
+const EmailConfirm = () => {
+  const navigate = useNavigate();
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
 
@@ -15,22 +16,34 @@ const Confirmation = () => {
   const token = queryParams.get("token");
 
   // request to BE
-  // timeout for spinner to load
   useEffect(() => {
+    // redirect
+    const redirect = (page) => {
+      setTimeout(() => {
+        navigate(page);
+      }, 3000);
+    };
+
     fetch(`http://localhost:9002/confirm?token=${token}`).then((res) => {
       if (res.status === 200) {
         setSuccess(true);
+
+        // timeout for spinner to load
         setTimeout(() => {
           setIsLoading(false);
         }, 500);
+        redirect("/login");
       } else {
         setSuccess(false);
+
+        // timeout for spinner to load
         setTimeout(() => {
           setIsLoading(false);
         }, 500);
+        redirect("/signup");
       }
     });
-  }, [token]);
+  }, [token, navigate]);
 
   // message to be shown on screen
   let content;
@@ -39,7 +52,9 @@ const Confirmation = () => {
       <>
         <h2>Your email has been confirmed!</h2>
         <div>
-          <Link to="/login">Click here to login</Link>
+          <Link to="/login">
+            You will be redirected in 3 seconds or click here to login
+          </Link>
         </div>
       </>
     );
@@ -48,7 +63,9 @@ const Confirmation = () => {
       <>
         <h2>Unable to confirm your email.</h2>
         <div>
-          <Link to="/signup">Click here to register again</Link>
+          <Link to="/signup">
+            You will be redirected in 3 seconds or click here to register again
+          </Link>
         </div>
       </>
     );
@@ -57,9 +74,15 @@ const Confirmation = () => {
   return (
     <>
       <Logo />
-      {isLoading ? <Spinner /> : content}
+      {isLoading ? (
+        <div className="spin">
+          <Spinner />
+        </div>
+      ) : (
+        content
+      )}
     </>
   );
 };
 
-export default Confirmation;
+export default EmailConfirm;

@@ -2,9 +2,9 @@ import { useNavigate, useParams } from "react-router-dom";
 
 import classes from "./ViewEntry.module.css";
 
-import Button from "../../UI/Button";
+import Button from "../UI/Button";
 import { useContext } from "react";
-import EntriesContext from "../../../store/entries-context";
+import EntriesContext from "../../store/entries-context";
 
 const ViewEntry = () => {
   const navigate = useNavigate();

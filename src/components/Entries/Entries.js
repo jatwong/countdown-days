@@ -4,8 +4,8 @@ import { useNavigate } from "react-router-dom";
 import classes from "./Entries.module.css";
 
 import Entry from "./Entry";
-import EntriesContext from "../../../store/entries-context";
-import Spinner from "../../UI/Spinner";
+import EntriesContext from "../../store/entries-context";
+import Spinner from "../UI/Spinner";
 
 const Entries = () => {
   const navigate = useNavigate();

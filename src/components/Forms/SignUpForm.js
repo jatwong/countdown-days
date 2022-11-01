@@ -1,13 +1,14 @@
-import Logo from "../../UI/Logo";
+import Logo from "../UI/Logo";
 import Input from "./Input/Input";
-import Button from "../../UI/Button";
+import Button from "../UI/Button";
 
 import classes from "./Forms.module.css";
-import useInput from "../../hooks/use-input";
+import useInput from "../hooks/use-input";
 import { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import Verify from "../Verify";
-import RegStatusContext from "../../../store/regStatus-context";
+import Verify from "../Pages/RegisterVerify";
+import RegStatusContext from "../../store/regStatus-context";
+import Spinner from "../UI/Spinner";
 
 const SignUpForm = () => {
   const statCtx = useContext(RegStatusContext);
@@ -18,6 +19,7 @@ const SignUpForm = () => {
 
   // state for submission of form
   const [submitted, setIsSubmitted] = useState(false);
+  const [submitting, setIsSubmitting] = useState(false);
 
   // state for error message
   const [message, setMessage] = useState("");
@@ -98,6 +100,8 @@ const SignUpForm = () => {
   const formSubmitHandler = (event) => {
     event.preventDefault();
 
+    setIsSubmitting(true);
+
     fetch("http://localhost:9002/register", {
       method: "POST",
       body: JSON.stringify({
@@ -109,12 +113,14 @@ const SignUpForm = () => {
         "Content-Type": "application/json",
       },
     })
-    // Server up means it can be caught in the .then
-    // even if the response status is not 200 (E.G. 50X, 40X)
+      // Server up means it can be caught in the .then
+      // even if the response status is not 200 (E.G. 50X, 40X)
       .then((res) => {
+        setIsSubmitting(false);
         if (res.status === 200) {
           return res.json().then((data) => {
-            if (!data.ok) { // From the backend, meaning email has been taken
+            if (!data.ok) {
+              // From the backend, meaning email has been taken
               setIsSubmitted(false);
               setMessage(data.message);
             } else {
@@ -219,6 +225,12 @@ const SignUpForm = () => {
                 and the <a href="http://localhost:3000/todo">privacy policy</a>
               </label>
             </div>
+
+            {submitting && (
+              <div className="spin">
+                <Spinner />
+              </div>
+            )}
 
             <Button valid={!formIsValid}>SUBMIT</Button>
           </form>

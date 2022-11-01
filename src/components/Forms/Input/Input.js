@@ -12,6 +12,7 @@ const Input = (props) => {
         onChange={props.onChange}
         onBlur={props.onBlur}
         value={props.value}
+        readOnly={props.read}
       />
     </>
   );

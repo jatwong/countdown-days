@@ -1,11 +1,11 @@
 import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import useInput from "../../hooks/use-input";
-import AuthContext from "../../../store/auth-context";
+import useInput from "../hooks/use-input";
+import AuthContext from "../../store/auth-context";
 
-import Logo from "../../UI/Logo";
+import Logo from "../UI/Logo";
 import Input from "./Input/Input";
-import Button from "../../UI/Button";
+import Button from "../UI/Button";
 
 import classes from "./Forms.module.css";
 
