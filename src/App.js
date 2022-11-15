@@ -1,9 +1,6 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 import AuthContext from "./store/auth-context";
 
-import UserLogin from "./components/Pages/UserLogin";
-import Registration from "./components/Pages/Registration";
-import ForgotPass from "./components/Pages/ForgotPass";
 import Entries from "./components/Entries/Entries";
 import AddEntry from "./components/Entries/AddEntry";
 import ViewEntry from "./components/Entries/ViewEntry";
@@ -14,6 +11,8 @@ import { Fragment, useContext } from "react";
 import EmailConfirm from "./components/Pages/EmailConfirm";
 import Header from "./components/UI/Header";
 import ResetPassForm from "./components/Forms/ResetPassForm";
+import LoginForm from "./components/Forms/LoginForm";
+import SignUpForm from "./components/Forms/SignUpForm";
 
 function App() {
   const authCtx = useContext(AuthContext);
@@ -38,14 +37,14 @@ function App() {
             path="/login"
             element={
               !authCtx.isLoggedIn ? (
-                <UserLogin />
+                <LoginForm />
               ) : (
                 <Navigate replace to={"/entries"} />
               )
             }
           />
-          <Route path="/forgot-password" element={<ForgotPass />} />
-          <Route path="/signup" element={<Registration />} />
+          <Route path="/forgot-password" element={<ResetPassForm />} />
+          <Route path="/signup" element={<SignUpForm />} />
           <Route
             path="/entries"
             element={
