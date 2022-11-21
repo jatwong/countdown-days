@@ -62,7 +62,7 @@ const Entry = (props) => {
           confirm={removeEntryHandler}
         />
       )}
-      <div className={classes.card}>
+      <div className={classes.card} data-testid='entry-wrapper'>
         <img
           className={classes.icon}
           src={editIcon}
