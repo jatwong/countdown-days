@@ -1,7 +1,7 @@
 import Logo from "../UI/Logo";
 import Input from "./Input/Input";
 import Button from "../UI/Button";
-
+import React from 'react';
 import classes from "./Forms.module.css";
 import useInput from "../hooks/use-input";
 import { useState, useContext } from "react";
