@@ -15,10 +15,10 @@ code {
 
 .page {
   display: flex;
-  margin-top: 7rem;
   flex-direction: column;
-  /* border: 1px solid black; */
+  justify-content: center;
   align-items: center;
+  height: 100vh;
 }
 
 .div {
