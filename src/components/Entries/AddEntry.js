@@ -7,20 +7,32 @@ import classes from "./EntryOptions.module.css";
 
 const AddEntry = (props) => {
   const navigate = useNavigate();
+  const todayDate = new Date();
+  console.log(todayDate);
 
-  const { value: enteredTitle, valueChangeHandler: titleChangeHandler } =
-    useInput((value) => value.trim("") !== "");
+  const {
+    value: enteredTitle,
+    valueChangeHandler: titleChangeHandler,
+    isValid: titleIsValid,
+  } = useInput((value) => value.trim("") !== "");
 
-  const { value: enteredDate, valueChangeHandler: dateChangeHandler } =
-    useInput((value) => value.trim("") !== "");
+  const {
+    value: enteredDate,
+    valueChangeHandler: dateChangeHandler,
+    isValid: dateIsValid,
+  } = useInput((value) => value.trim("") !== "");
 
+  let formIsValid = false;
+  if (titleIsValid && dateIsValid) {
+    formIsValid = true;
+  }
 
   const onSubmitHandler = (event) => {
     event.preventDefault();
 
     const newDate = new Date(enteredDate);
     // apply correct timezone to date object
-    newDate.setMinutes(newDate.getMinutes() + newDate.getTimezoneOffset())
+    newDate.setMinutes(newDate.getMinutes() + newDate.getTimezoneOffset());
 
     fetch("http://localhost:9003/create", {
       method: "POST",
@@ -59,14 +71,14 @@ const AddEntry = (props) => {
             for="date"
             label="Choose a date"
             type="date"
-            // min=
+            min={todayDate}
             id="date"
             value={enteredDate}
             onChange={dateChangeHandler}
           />
         </div>
         <div className={classes.actions}>
-          <Button type="submit">Add Entry</Button>
+          <Button type="submit" valid={!formIsValid}>Add Entry</Button>
           <Button type="button" onClick={onCancelHandler}>
             Cancel
           </Button>
