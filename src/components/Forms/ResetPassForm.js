@@ -12,6 +12,8 @@ import { useContext } from "react";
 import RegStatusContext from "../../store/regStatus-context";
 
 const ResetPassForm = () => {
+  const userServiceUrl = process.env.REACT_APP_USER_SERVICE;
+
   // state for form submission
   const [submitted, setIsSubmitted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -53,7 +55,7 @@ const ResetPassForm = () => {
     setIsLoading(true);
 
     fetch(
-      `http://localhost:9002/change-password?email=${email}&token=${token}`,
+      `${userServiceUrl}/change-password?email=${email}&token=${token}`,
       {
         method: "POST",
         credentials: "include",

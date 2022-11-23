@@ -5,11 +5,13 @@ import RegStatusContext from "../../store/regStatus-context";
 import classes from "./Header.module.css";
 
 const Header = () => {
+  const userServiceUrl = process.env.REACT_APP_USER_SERVICE;
+
   const navigate = useNavigate();
   const statCtx = useContext(RegStatusContext)
 
   const logoutCall = () => {
-    fetch("http://localhost:9002/logout", {
+    fetch(`${userServiceUrl}/logout`, {
       method: "POST",
       credentials: "include",
     })

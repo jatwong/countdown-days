@@ -12,6 +12,8 @@ import { useContext } from "react";
 import RegStatusContext from "../../store/regStatus-context";
 
 const ForgotPassForm = () => {
+  const userServiceUrl = process.env.REACT_APP_USER_SERVICE;
+
   const navigate = useNavigate();
   const statCtx = useContext(RegStatusContext);
   // state for submission of form
@@ -34,7 +36,7 @@ const ForgotPassForm = () => {
 
     setIsLoading(true);
 
-    fetch("http://localhost:9002/forgot-password", {
+    fetch(`${userServiceUrl}/forgot-password`, {
       method: "POST",
       credentials: "include",
       body: JSON.stringify({ email: enteredEmail }),

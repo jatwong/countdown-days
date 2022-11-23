@@ -5,6 +5,8 @@ import Logo from "../UI/Logo";
 import Spinner from "../UI/Spinner";
 
 const EmailConfirm = () => {
+  const userServiceUrl = process.env.REACT_APP_USER_SERVICE;
+
   const navigate = useNavigate();
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
@@ -24,7 +26,7 @@ const EmailConfirm = () => {
       }, 3000);
     };
 
-    fetch(`http://localhost:9002/confirm?token=${token}`).then((res) => {
+    fetch(`${userServiceUrl}/confirm?token=${token}`).then((res) => {
       if (res.status === 200) {
         setSuccess(true);
 

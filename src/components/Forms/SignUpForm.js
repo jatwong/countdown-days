@@ -11,6 +11,8 @@ import RegStatusContext from "../../store/regStatus-context";
 import Spinner from "../UI/Spinner";
 
 const SignUpForm = () => {
+  const userServiceUrl = process.env.REACT_APP_USER_SERVICE;
+
   const statCtx = useContext(RegStatusContext);
   const navigate = useNavigate();
 
@@ -102,7 +104,7 @@ const SignUpForm = () => {
 
     setIsSubmitting(true);
 
-    fetch("http://localhost:9002/register", {
+    fetch(`${userServiceUrl}/register`, {
       method: "POST",
       body: JSON.stringify({
         name: enteredName,
@@ -221,8 +223,8 @@ const SignUpForm = () => {
               />
               <label htmlFor="agree">
                 I agree to the{" "}
-                <a href="http://localhost:3000/todo">terms &amp; conditions</a>{" "}
-                and the <a href="http://localhost:3000/todo">privacy policy</a>
+                <a href="#">terms &amp; conditions</a>{" "}
+                and the <a href="#">privacy policy</a>
               </label>
             </div>
 

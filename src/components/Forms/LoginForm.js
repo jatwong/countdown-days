@@ -10,6 +10,8 @@ import Button from "../UI/Button";
 import classes from "./Forms.module.css";
 
 const LoginForm = () => {
+  const userServiceUrl = process.env.REACT_APP_USER_SERVICE;
+
   const navigate = useNavigate();
   const authCtx = useContext(AuthContext);
   const [error, setError] = useState(false);
@@ -42,7 +44,7 @@ const LoginForm = () => {
   const formSubmitHandler = (event) => {
     event.preventDefault();
 
-    fetch("http://localhost:9002/login", {
+    fetch(`${userServiceUrl}/login`, {
       method: "POST",
       credentials: "include",
       body: JSON.stringify({
