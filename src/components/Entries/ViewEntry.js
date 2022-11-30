@@ -14,15 +14,6 @@ const ViewEntry = () => {
   const entriesCtx = useContext(EntriesContext);
 
   let entries = entriesCtx.entries
-  // let entries = [{
-  //   id: 2,
-  //   title: "Date 1",
-  //   date: "2022-10-09T08:00:00.000Z" // PDT == 1AM on the 9th
-  // }];
-  // if (entriesCtx.entries) {
-  //   entries = entriesCtx.entries
-  // }
-
   const { entryId } = useParams();
 
   let match;
@@ -33,12 +24,6 @@ const ViewEntry = () => {
 
   if (entries) {
     match = entriesCtx.entriesMap[parseInt(entryId)];
-    // for (const entry of entries) {
-    //   if (entry.id === parseInt(entryId)) {
-    //     match = entry;
-    //     break;
-    //   }
-    // }
     if (match) {
       let date = new Date(match.date);
       stringDate = `${date.getMonth()+1}-${date.getDate()}-${date.getFullYear()}`;

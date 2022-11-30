@@ -78,7 +78,7 @@ const AddEntry = (props) => {
           />
         </div>
         <div className={classes.actions}>
-          <Button type="submit" valid={!formIsValid}>Add Entry</Button>
+          <Button type="submit" invalid={!formIsValid}>Add Entry</Button>
           <Button type="button" onClick={onCancelHandler}>
             Cancel
           </Button>

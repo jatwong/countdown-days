@@ -155,7 +155,7 @@ const ResetPassForm = () => {
             </div>
           )}
 
-          <Button valid={!formIsValid}>RESET</Button>
+          <Button invalid={!formIsValid}>RESET</Button>
         </form>
       )}
 
