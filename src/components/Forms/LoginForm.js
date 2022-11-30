@@ -109,7 +109,7 @@ const LoginForm = () => {
             </p>
           )}
         </div>
-        <Button valid={!formIsValid}>LOGIN</Button>
+        <Button invalid={!formIsValid}>LOGIN</Button>
       </form>
 
       <div className="div">

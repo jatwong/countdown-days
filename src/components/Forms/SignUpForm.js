@@ -234,7 +234,7 @@ const SignUpForm = () => {
               </div>
             )}
 
-            <Button valid={!formIsValid}>SUBMIT</Button>
+            <Button invalid={!formIsValid}>SUBMIT</Button>
           </form>
           <div>
             <Link to="/login">Already a member? Login!</Link>

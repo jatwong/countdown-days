@@ -109,7 +109,7 @@ const ForgotPassForm = () => {
               </div>
             )}
 
-            <Button valid={!emailIsValid}>SEND</Button>
+            <Button invalid={!emailIsValid}>SEND</Button>
           </form>
         </>
       )}
