@@ -19,7 +19,6 @@ const Entries = () => {
     }).then((res) => {
       if (res.status === 200) {
         return res.json().then((data) => {
-          console.log(data);
           const transformedDates = [];
 
           for (const entry of data.dates) {
@@ -72,7 +71,6 @@ const Entries = () => {
               id={entry.id}
               title={entry.title}
               date={entry.date}
-              refresh={getAllEntriesHandler}
             />
           ))}
         </ul>

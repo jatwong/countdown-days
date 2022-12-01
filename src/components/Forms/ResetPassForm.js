@@ -70,11 +70,8 @@ const ResetPassForm = () => {
       }
     )
       .then((res) => {
-        console.log(res);
         if (res.status === 200) {
-          console.log("200");
           return res.json().then((data) => {
-            console.log(data);
             if (data.ok) { // Status 200 and json ok == true
               setTimeout(() => {
                 setIsLoading(false);
@@ -85,7 +82,6 @@ const ResetPassForm = () => {
               }, 3000);
             } else { // Status 200 but json ok == false
               setTimeout(() => {
-                console.log("this3")
                 setIsLoading(false);
                 setIsSubmitted(false);
                 setUnableReset(true);
@@ -93,7 +89,6 @@ const ResetPassForm = () => {
             }
           });
         } else { // Status not 200 (so e.g. 400 or 500)
-          console.log("this1")
           setTimeout(() => {
             setIsLoading(false);
             setIsSubmitted(false);
@@ -103,7 +98,6 @@ const ResetPassForm = () => {
         }
       })
       .catch(() => { // Server unreachable
-        console.log("this2")
         setTimeout(() => {
           setIsLoading(false);
           setIsSubmitted(false);

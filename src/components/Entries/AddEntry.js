@@ -5,11 +5,9 @@ import Input from "../Forms/Input/Input";
 import Button from "../UI/Button";
 import classes from "./EntryOptions.module.css";
 
-const AddEntry = (props) => {
+const AddEntry = () => {
   const navigate = useNavigate();
-  const todayDate = new Date();
-  console.log(todayDate);
-
+  
   const {
     value: enteredTitle,
     valueChangeHandler: titleChangeHandler,
@@ -71,7 +69,6 @@ const AddEntry = (props) => {
             for="date"
             label="Choose a date"
             type="date"
-            min={todayDate}
             id="date"
             value={enteredDate}
             onChange={dateChangeHandler}

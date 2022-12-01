@@ -23,7 +23,6 @@ const ViewEntry = () => {
 
   if (entries) {
     match = entriesCtx.entriesMap[parseInt(entryId)];
-    console.log(match);
     if (match) {
       ({ stringDate, daysLeftString } = getDaysLeft(match.date));
     }
