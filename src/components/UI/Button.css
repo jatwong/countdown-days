@@ -1,28 +1,34 @@
 button {
-    font-family: inherit;
-    background-color: #3E4F8E;
-    color: #D7D7D7;
-    border-radius: 12px;
-    border: 1px solid #3E4F8E;
-    padding: 0.4rem 1.5rem;
-    font-size: 0.8rem ;
-    margin: 1.3rem;
-    align-self: center;
+  font-family: inherit;
+  background-color: #3e4f8e;
+  color: #ffffff;
+  border-radius: 12px;
+  border: 1px solid #3e4f8e;
+  padding: 0.4rem 1.5rem;
+  font-size: 0.8rem;
+  margin: 1.3rem;
+  align-self: center;
 }
 
 button:disabled,
 button:disabled:hover {
-    background-color: #8189A5;
-    color: #D7D7D7;
-    border: 1px solid #8189A5;
-    cursor:auto;
+  background-color: #8189a5;
+  color: #d7d7d7;
+  border: 1px solid #8189a5;
+  cursor: auto;
 }
 
 button:hover {
-    background-color: #99ABED;
-    border: 1px solid #99ABED;
-    color: #3E4F8E;
-    cursor: pointer;
+  background-color: #99abed;
+  border: 1px solid #99abed;
+  color: #3e4f8e;
+  cursor: pointer;
+}
+
+.delete:hover {
+  background-color: #c53a74;
+  border: 1px solid #c53a74;
+  color: #ffffff;
 }
 
 /* button:active {

@@ -1,31 +1,36 @@
 .card {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 30rem;
-    margin: 0.5rem 0px 0.5rem 0px;
-    border: #EEF2FF;
-    background-color: #EEF2FF;
-    color: #393F53;
-    border-radius: 8px;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 30rem;
+  min-height: fit-content;
+  height: 6rem;
+  margin: 1rem 0px;
+  border: #eef2ff;
+  background-color: #eef2ff;
+  color: #393f53;
+  border-radius: 8px;
+  padding: 0.5em;
 }
 
-.icon {
-    margin-left: 10px;
-    margin-right: 20px;
-}
-
-.icon:hover {
-    cursor: pointer;
+.card:hover {
+  cursor: pointer;
+  box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
 .title {
-    display: flex;
-    flex: 1;
-    margin-right: 20px;
+  font-weight: 800;
+  margin: 0;
 }
 
-.title:hover {
-    cursor: pointer;
-    font-weight: 800;
+.date {
+  color: #99abed;
+  margin: 0 0 0.5em 0;
+}
+
+.days {
+  font-size: 2rem;
+  margin: 0;
 }

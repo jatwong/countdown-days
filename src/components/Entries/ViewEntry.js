@@ -5,6 +5,7 @@ import classes from "./ViewEntry.module.css";
 import Button from "../UI/Button";
 import { useContext } from "react";
 import EntriesContext from "../../store/entries-context";
+import getDaysLeft from "../../utils/getDaysLeft"
 
 const ViewEntry = () => {
   const navigate = useNavigate();
@@ -13,35 +14,19 @@ const ViewEntry = () => {
   };
   const entriesCtx = useContext(EntriesContext);
 
-  let entries = entriesCtx.entries
+  let entries = entriesCtx.entries;
   const { entryId } = useParams();
 
   let match;
   let stringDate;
-  let diffDays;
-  let current = new Date();
-  let stringTime = "00:00:00";
+  let daysLeftString;
 
   if (entries) {
     match = entriesCtx.entriesMap[parseInt(entryId)];
+    console.log(match);
     if (match) {
-      let date = new Date(match.date);
-      stringDate = `${date.getMonth()+1}-${date.getDate()}-${date.getFullYear()}`;
-      
-      const diffTime = date - current;
-      diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-      if (diffDays >= 0) {
-        // Subtract hours, minutes, seconds
-        stringTime = `${23-current.getHours()}:${59-current.getMinutes()}:${59-current.getSeconds()}`;
-      } else {
-        diffDays = 0;
-      }
+      ({ stringDate, daysLeftString } = getDaysLeft(match.date));
     }
-  }
-
-  let daysLeftString = `${diffDays} days left`
-  if (diffDays === 1) {
-    daysLeftString = `${diffDays} day left`
   }
 
   let content = (
@@ -58,7 +43,6 @@ const ViewEntry = () => {
         </div>
         <div className={classes.center}>
           <h3>{daysLeftString}</h3>
-          {/* <h3>{stringTime}</h3> */}
         </div>
         <Button onClick={goBackHandler}>BACK</Button>
       </>

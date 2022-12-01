@@ -1,84 +1,26 @@
-import { useContext, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-import ConfirmModal from "../UI/ConfirmModal";
 import classes from "./Entry.module.css";
-
-import editIcon from "../../icons/pencilIcon.svg"
-import deleteIcon from "../../icons/deleteIcon.svg";
-import RegStatusContext from "../../store/regStatus-context";
+import getDaysLeft from "../../utils/getDaysLeft";
+import EditEntry from "./EditEntry";
 
 // how each entry should be rendered (mapped here)
 const Entry = (props) => {
-  const [showModal, setShowModal] = useState(false);
-  const statusCtx = useContext(RegStatusContext);
-
   const navigate = useNavigate();
-
-  // deletes the entry
-  const removeEntryHandler = (currentEntry) => {
-    fetch("http://localhost:9003/delete", {
-      method: "POST",
-      credentials: "include",
-      body: JSON.stringify({
-        id: currentEntry,
-      }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((res) => {
-        setShowModal(false);
-        props.refresh();
-        if (res.status !== 200) {
-          statusCtx.statusHandler(true, res.status, res.statusText);
-        }
-      })
-      .catch((err) => {
-        statusCtx.reset();
-        navigate("error");
-      });
-  };
-
-  const onDeleteHandler = () => {
-    setShowModal(true);
-  };
-
-  const onCancelHandler = () => {
-    setShowModal(false);
-  };
-
-  const onEditHandler = () => {
-    // navigate to edit entry page
+  const clickToEdit = () => {
     navigate(`/entries/edit/${props.id}`);
   };
 
+  // get date as string; calculate days left
+  let stringDate, daysLeftString;
+  ({ stringDate, daysLeftString } = getDaysLeft(props.date));
+
   return (
     <>
-      {showModal && (
-        <ConfirmModal
-          entry={props.id}
-          cancel={onCancelHandler}
-          confirm={removeEntryHandler}
-        />
-      )}
-      <div className={classes.card}>
-        <img
-          className={classes.icon}
-          src={editIcon}
-          alt="Pencil edit icon"
-          onClick={onEditHandler}
-        />
-        <Link className={classes.title} to={`/entries/${props.id}`}>
-          <p>{props.title}</p>
-        </Link>
-
-        <img
-          className={classes.icon}
-          src={deleteIcon}
-          alt="Delete entry icon"
-          onClick={onDeleteHandler}
-        />
+      <div className={classes.card} onClick={clickToEdit}>
+        <p className={classes.title}>{props.title}</p>
+        <p className={classes.date}>{stringDate}</p>
+        <p className={classes.days}>{daysLeftString}</p>
       </div>
     </>
   );

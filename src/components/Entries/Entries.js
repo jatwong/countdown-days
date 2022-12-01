@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 import classes from "./Entries.module.css";
@@ -11,8 +11,6 @@ const Entries = () => {
   const navigate = useNavigate();
   const entriesCtx = useContext(EntriesContext);
 
-  // const navigate = useNavigate();
-
   // get entries from BE
   const getAllEntriesHandler = () => {
     fetch("http://localhost:9003/list", {
@@ -21,6 +19,7 @@ const Entries = () => {
     }).then((res) => {
       if (res.status === 200) {
         return res.json().then((data) => {
+          console.log(data);
           const transformedDates = [];
 
           for (const entry of data.dates) {
@@ -68,7 +67,13 @@ const Entries = () => {
       <>
         <ul>
           {entriesCtx.entries.map((entry) => (
-            <Entry key={entry.id} id={entry.id} title={entry.title} refresh={getAllEntriesHandler}/>
+            <Entry
+              key={entry.id}
+              id={entry.id}
+              title={entry.title}
+              date={entry.date}
+              refresh={getAllEntriesHandler}
+            />
           ))}
         </ul>
         <button

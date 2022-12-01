@@ -2,13 +2,18 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useContext, useState } from "react";
 
 import EntriesContext from "../../store/entries-context";
+import RegStatusContext from "../../store/regStatus-context";
+import ConfirmModal from "../UI/ConfirmModal";
 import Input from "../Forms/Input/Input";
 import Button from "../UI/Button";
 
 import classes from "./EntryOptions.module.css";
 
-const EditEntry = () => {
+const EditEntry = (props) => {
   const navigate = useNavigate();
+  const statusCtx = useContext(RegStatusContext);
+
+  const [showModal, setShowModal] = useState(false);
   const entriesCtx = useContext(EntriesContext);
   const { entryId } = useParams();
 
@@ -80,12 +85,54 @@ const EditEntry = () => {
     });
   };
 
+  // deletes the entry
+  const removeEntryHandler = (currentEntry) => {
+    fetch("http://localhost:9003/delete", {
+      method: "POST",
+      credentials: "include",
+      body: JSON.stringify({
+        id: currentEntry,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => {
+        setShowModal(false);
+        props.refresh();
+        if (res.status !== 200) {
+          statusCtx.statusHandler(true, res.status, res.statusText);
+        }
+      })
+      .catch((err) => {
+        statusCtx.reset();
+        console.log(err);
+        navigate("/error");
+      });
+  };
+
+  const onDeleteHandler = () => {
+    setShowModal(true);
+  };
+
+  const onNotDeleteHandler = () => {
+    setShowModal(false);
+  };
+
   const onCancelHandler = () => {
     navigate("/entries");
   };
 
   return (
     <>
+      {showModal && (
+        <ConfirmModal
+          entry={props.id}
+          cancel={onNotDeleteHandler}
+          confirm={removeEntryHandler}
+        />
+      )}
+
       <form className={classes["add-entry"]} onSubmit={onSaveHandler}>
         <Input
           className={classes.title}
@@ -111,6 +158,11 @@ const EditEntry = () => {
         </div>
         <div className={classes.actions}>
           <Button>Save Entry</Button>
+          <button className="delete" type="button" onClick={onDeleteHandler}>
+            Delete Entry
+          </button>
+        </div>
+        <div>
           <Button type="button" onClick={onCancelHandler}>
             Cancel
           </Button>

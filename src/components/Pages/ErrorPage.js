@@ -11,7 +11,7 @@ const ErrorPage = () => {
     <div className="div">
       <h1>Uh oh!</h1>
       <p>Something went wrong!</p>
-      <Link to={"/login"}>Click here to go back to login</Link>
+      <Link to={"/login"}>Click here to go back</Link>
     </div>
   );
   if (statCtx.hasStatus) {
