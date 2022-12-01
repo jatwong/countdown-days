@@ -56,6 +56,11 @@ const EditEntry = (props) => {
     setNewDate(event.target.value);
   };
 
+  let formUpdated = false;
+  if (newTitle !== initialTitle || newDate !== initialDate) {
+    formUpdated = true;
+  } 
+
   const onSaveHandler = (event) => {
     event.preventDefault();
 
@@ -64,8 +69,6 @@ const EditEntry = (props) => {
     enteredDate.setMinutes(
       enteredDate.getMinutes() + enteredDate.getTimezoneOffset()
     );
-
-    console.log(newDate);
 
     fetch("http://localhost:9003/update", {
       method: "POST",
@@ -91,7 +94,7 @@ const EditEntry = (props) => {
       method: "POST",
       credentials: "include",
       body: JSON.stringify({
-        id: currentEntry,
+        id: parseInt(currentEntry),
       }),
       headers: {
         "Content-Type": "application/json",
@@ -99,14 +102,13 @@ const EditEntry = (props) => {
     })
       .then((res) => {
         setShowModal(false);
-        props.refresh();
-        if (res.status !== 200) {
+        navigate("/entries");
+        if (res.status !== 204) {
           statusCtx.statusHandler(true, res.status, res.statusText);
         }
       })
       .catch((err) => {
         statusCtx.reset();
-        console.log(err);
         navigate("/error");
       });
   };
@@ -127,7 +129,7 @@ const EditEntry = (props) => {
     <>
       {showModal && (
         <ConfirmModal
-          entry={props.id}
+          entry={entryId}
           cancel={onNotDeleteHandler}
           confirm={removeEntryHandler}
         />
@@ -157,7 +159,7 @@ const EditEntry = (props) => {
           />
         </div>
         <div className={classes.actions}>
-          <Button>Save Entry</Button>
+          <Button invalid={!formUpdated}>Save Entry</Button>
           <button className="delete" type="button" onClick={onDeleteHandler}>
             Delete Entry
           </button>
