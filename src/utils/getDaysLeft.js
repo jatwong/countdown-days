@@ -15,6 +15,8 @@ const getDaysLeft = (dateStr) => {
   let daysLeftString = `${diffDays} days left`;
   if (diffDays === 1) {
     daysLeftString = `${diffDays} day left`;
+  } else if (diffDays > 99999) {
+    daysLeftString = "99999+ days left";
   }
 
   return {

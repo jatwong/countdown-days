@@ -71,6 +71,7 @@ const Entries = () => {
               id={entry.id}
               title={entry.title}
               date={entry.date}
+              refresh={getAllEntriesHandler}
             />
           ))}
         </ul>

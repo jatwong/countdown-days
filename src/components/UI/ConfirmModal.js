@@ -1,8 +1,8 @@
 import Button from "./Button";
 import classes from "./ConfirmModal.module.css";
 
-const Backdrop = () => {
-  return <div className={classes.backdrop} />;
+const Backdrop = (props) => {
+  return <div className={classes.backdrop} onClick={props.onClick} />;
 };
 
 const ConfirmModal = (props) => {

@@ -2,8 +2,6 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useContext, useState } from "react";
 
 import EntriesContext from "../../store/entries-context";
-import RegStatusContext from "../../store/regStatus-context";
-import ConfirmModal from "../UI/ConfirmModal";
 import Input from "../Forms/Input/Input";
 import Button from "../UI/Button";
 
@@ -11,9 +9,7 @@ import classes from "./EntryOptions.module.css";
 
 const EditEntry = (props) => {
   const navigate = useNavigate();
-  const statusCtx = useContext(RegStatusContext);
 
-  const [showModal, setShowModal] = useState(false);
   const entriesCtx = useContext(EntriesContext);
   const { entryId } = useParams();
 
@@ -59,7 +55,7 @@ const EditEntry = (props) => {
   let formUpdated = false;
   if (newTitle !== initialTitle || newDate !== initialDate) {
     formUpdated = true;
-  } 
+  }
 
   const onSaveHandler = (event) => {
     event.preventDefault();
@@ -88,53 +84,12 @@ const EditEntry = (props) => {
     });
   };
 
-  // deletes the entry
-  const removeEntryHandler = (currentEntry) => {
-    fetch("http://localhost:9003/delete", {
-      method: "POST",
-      credentials: "include",
-      body: JSON.stringify({
-        id: parseInt(currentEntry),
-      }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((res) => {
-        setShowModal(false);
-        navigate("/entries");
-        if (res.status !== 204) {
-          statusCtx.statusHandler(true, res.status, res.statusText);
-        }
-      })
-      .catch((err) => {
-        statusCtx.reset();
-        navigate("/error");
-      });
-  };
-
-  const onDeleteHandler = () => {
-    setShowModal(true);
-  };
-
-  const onNotDeleteHandler = () => {
-    setShowModal(false);
-  };
-
   const onCancelHandler = () => {
     navigate("/entries");
   };
 
   return (
     <>
-      {showModal && (
-        <ConfirmModal
-          entry={entryId}
-          cancel={onNotDeleteHandler}
-          confirm={removeEntryHandler}
-        />
-      )}
-
       <form className={classes["add-entry"]} onSubmit={onSaveHandler}>
         <Input
           className={classes.title}
@@ -160,9 +115,6 @@ const EditEntry = (props) => {
         </div>
         <div className={classes.actions}>
           <Button invalid={!formUpdated}>Save Entry</Button>
-          <button className="delete" type="button" onClick={onDeleteHandler}>
-            Delete Entry
-          </button>
         </div>
         <div>
           <Button type="button" onClick={onCancelHandler}>
