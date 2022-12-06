@@ -13,6 +13,7 @@ import Header from "./components/UI/Header";
 import ResetPassForm from "./components/Forms/ResetPassForm";
 import LoginForm from "./components/Forms/LoginForm";
 import SignUpForm from "./components/Forms/SignUpForm";
+import ForgotPassForm from "./components/Forms/ForgotPassForm";
 
 function App() {
   const authCtx = useContext(AuthContext);
@@ -43,7 +44,7 @@ function App() {
               )
             }
           />
-          <Route path="/forgot-password" element={<ResetPassForm />} />
+          <Route path="/forgot-password" element={<ForgotPassForm />} />
           <Route path="/signup" element={<SignUpForm />} />
           <Route
             path="/entries"
