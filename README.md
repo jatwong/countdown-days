@@ -1,27 +1,27 @@
 # Countdown Days
 Countdown Days allow users to count how many days left to a certain day.
 
-Users are able to register, login, add, edit, and delete date entries. The interface of this app is simple and straightforward.
+Users are able to register, login, add, edit, view, and delete date entries. The interface of this app is simple and straightforward.
 
 ### Technologies
-+ Frontend: React
++ Frontend: JavaScript, React, HTML, CSS (this repository)
 + Backend: Golang, MySQL, Docker
 
 ### Video Demo
 
 
-### Author & Contributors
-+ Author-- UI/UX, Frontend: Justina Wong
+### Contributors
++ UI/UX, Frontend: Justina Wong
 + Frontend Consultant: Jennifer Wong
 + Backend: Robin Cristobal
 
 ## Reflection
-The goal of developing this app was to allow me to solidify, as well as put to use, everything I had learned about React JS.
+The goal of developing this app was for me to solidify, as well as put to use, everything I had learned about React and JavaScript.
 
-+ Challenges I Faced
-    + Listing/fetching and using fetched data
++ Challenges I Overcame
+    + Working with backend APIs such as fetching and using fetched data
     + Finding the optimal way to pass data to components
-    + Writing and running tests
+    + Writing and running unit tests
 
 + Future Improvements
     + Better organization of components and file
