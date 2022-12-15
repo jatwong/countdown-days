@@ -1,11 +1,11 @@
 # Countdown Days
 Countdown Days allow users to count how many days left to a certain day.
 
-Users are able to register, login, add, edit, view, and delete date entries. The interface of this app is simple and straightforward.
+Users are able to register, login, reset passwords and add, edit, view, and delete date entries. The interface of this app is simple and straightforward.
 
 ### Technologies
-+ Frontend: JavaScript, React, HTML, CSS (this repository)
-+ Backend: Golang, MySQL, Docker
++ Frontend: JavaScript, React, HTML, CSS (done by me, this repository)
++ Backend: Golang, MySQL, Docker (not done by me)
 
 ### Video Demo
 
