@@ -9,6 +9,9 @@ Users are able to register, login, reset passwords and add, edit, view, and dele
 
 ### Video Demo
 
+https://user-images.githubusercontent.com/111151026/208751396-2d485611-049a-446d-8b0c-70f0f8682fa2.mp4
+
+
 
 ### Contributors
 + UI/UX, Frontend: Justina Wong
