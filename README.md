@@ -11,7 +11,8 @@ Users are able to register, login, reset passwords and add, edit, view, and dele
 
 https://user-images.githubusercontent.com/111151026/208751396-2d485611-049a-446d-8b0c-70f0f8682fa2.mp4
 
-
+### Figma Design
+View the initial design for the app <a href="https://www.figma.com/file/aigz5eKfst2tO5XRpavMZy/Countdown-(Website)-Prototype?node-id=0%3A1&t=li6SkCdHOcLksrBp-1">here</a>.
 
 ### Contributors
 + UI/UX, Frontend: Justina Wong
